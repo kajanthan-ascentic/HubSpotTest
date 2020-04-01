@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DTRHcroAPdHce9anSqC/H57zLdkyDauaV/cL4KGz4QwigFCkjvmiwdH49OwYwdmwR+0h1NR0sDkBgwPxKpAhJQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\LENOVO\\Source\\Repos\\Ascentic\\kajanthan-ascentic\\HubSpotTest\\HubSpotTest.Model\\HubSpotTest.Model.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
