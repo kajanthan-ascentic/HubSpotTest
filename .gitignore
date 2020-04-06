@@ -1,5 +1,10 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 
+.vs/
+HubSpotTest.API/bin/
+HubSpotTest.API/obj/
+HubSpotTest.Model/obj/
+HubSpotTest.Service/obj/
