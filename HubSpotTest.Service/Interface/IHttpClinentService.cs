@@ -8,5 +8,6 @@ namespace HubSpotTest.Service.Interface
     public interface IHttpClinentService
     {
         Task<string> GetAsync(string uri);
+        Task<string> PostAsync(string uri, string data);
     }
 }
