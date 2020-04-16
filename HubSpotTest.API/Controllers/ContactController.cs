@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace HubSpotTest.API.Controllers
 {
     [Route("api/[controller]")]
-    public class HotSpotController : Controller
+    public class ContactController : Controller
     {
         private readonly IHotSpotApiService hotspotservice;
-        public HotSpotController(IHotSpotApiService hotspotservice)
+        public ContactController(IHotSpotApiService hotspotservice)
         {
             this.hotspotservice = hotspotservice;
         }
@@ -35,9 +35,17 @@ namespace HubSpotTest.API.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            try
+            {
+                var response = await hotspotservice.GetContactById(id);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // POST api/values
@@ -61,7 +69,7 @@ namespace HubSpotTest.API.Controllers
         {
             try
             {
-                var response = await hotspotservice.UpdateContact(id,value);
+                var response = await hotspotservice.UpdateContact(id, value);
                 return Ok(response);
             }
             catch (Exception ex)
