@@ -12,5 +12,7 @@ namespace HubSpotTest.Model
         public string ClientSecret { get; set; }
         public string ApiKey { get; set; }
         public string BaseAddress { get; set; }
+
+        public string RedirectUrl { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace HubSpotTest.Service.Service
             var client = new HttpClient();
             var client_id = this.hotspotSettings.Value.ClientId;
             var client_secret = this.hotspotSettings.Value.ClientSecret;
+            var redirectUrl = string.Format(this.hotspotSettings.Value.RedirectUrl, code);
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
@@ -43,7 +44,7 @@ namespace HubSpotTest.Service.Service
             postMessage.Add("grant_type", "authorization_code");
             postMessage.Add("client_id", client_id);
             postMessage.Add("client_secret", client_secret);
-            postMessage.Add("redirect_uri", "http://localhost:5001");
+            postMessage.Add("redirect_uri", redirectUrl);
             postMessage.Add("code", code);
             var request = new HttpRequestMessage(HttpMethod.Post, this.hotspotSettings.Value.TokenUrl)
             {
@@ -63,6 +64,57 @@ namespace HubSpotTest.Service.Service
             }
 
             return token;
+        }
+
+        public async Task<object> GetAccessToken(string code)
+        {
+            object result = new { Message = "No Code" };
+
+            if (!String.IsNullOrEmpty(code)) 
+            {
+                return await this.GenarateToken(code);
+            }
+            
+            return new Task<object>(()=> result);
+        }
+
+        private async Task<object> GenarateToken(string code)
+        {
+
+            var client = new HttpClient();
+            var client_id = this.hotspotSettings.Value.ClientId;
+            var client_secret = this.hotspotSettings.Value.ClientSecret;
+            // genarate url form actual url and  the code passed 
+            var redirectUrl = this.hotspotSettings.Value.RedirectUrl;
+
+            //client.DefaultRequestHeaders.Add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+
+            var postMessage = new Dictionary<string, string>();
+            postMessage.Add("grant_type", "authorization_code");
+            postMessage.Add("client_id", client_id);
+            postMessage.Add("client_secret", client_secret);
+            postMessage.Add("redirect_uri", redirectUrl);
+            postMessage.Add("code", code);
+            var request = new HttpRequestMessage(HttpMethod.Post, this.hotspotSettings.Value.TokenUrl)
+            {
+                Content = new FormUrlEncodedContent(postMessage)
+            };
+
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                token = JsonConvert.DeserializeObject<HubSpotToken>(json);
+                token.ExpiresAt = DateTime.UtcNow.AddSeconds(this.token.ExpiresIn);
+                
+                return token;
+            }
+            else
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
         }
     }
 }
