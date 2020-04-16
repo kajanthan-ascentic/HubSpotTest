@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HubSpotTest.Model;
 using HubSpotTest.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,8 +15,10 @@ namespace HubSpotTest.API.Controllers
     public class CompanyController : Controller
     {
         private readonly IHotSpotApiService hotspotservice;
-        public CompanyController(IHotSpotApiService hotspotservice)
+        private readonly ILogger<CompanyController> logger;
+        public CompanyController(IHotSpotApiService hotspotservice, ILogger<CompanyController> logger)
         {
+            this.logger = logger;
             this.hotspotservice = hotspotservice;
         }
         // GET: api/values
@@ -24,6 +27,7 @@ namespace HubSpotTest.API.Controllers
         {
             try
             {
+                this.logger.LogInformation("get Companies Information");
                 var response = await hotspotservice.GetAllCompanies();
                 return Ok(response);
             }

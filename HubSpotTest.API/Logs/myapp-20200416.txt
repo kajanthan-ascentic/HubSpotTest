@@ -1,0 +1,6 @@
+2020-04-16T23:00:11.1274180+05:30  [INF] Started at 04/16/2020 17:30:11 +00:00 and 0x2A is hex of 42 (773b2746)
+2020-04-16T23:00:12.3705730+05:30  [INF] Now listening on: "https://localhost:5001" (d826f4b8)
+2020-04-16T23:00:12.3737310+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-04-16T23:00:12.3767320+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2020-04-16T23:00:12.3799160+05:30  [INF] Content root path: "/Users/kajanthan/Ascentic.se/Projects/AutoConcept.Se/HubSpot-Beta/HubSpotTest.API" (b5d60022)
+2020-04-16T23:00:20.1691640+05:30 0HLV25F8PM1GB:00000003 [INF] get Companies Information (f4da4213)
