@@ -20,17 +20,17 @@ namespace HubSpotTest.Service.Service
             this.hotspotSettings = hotspotSettings;
         }
 
-        public async Task<string> GetToken()
+        public async Task<string> GetToken(string code)
         {
             if (!this.token.IsValidAndNotExpiring)
             {
-                this.token = await this.GetNewAccessToken();
+                this.token = await this.GetNewAccessToken(code);
             }
             return token.AccessToken;
         }
 
 
-        private async Task<HubSpotToken> GetNewAccessToken()
+        private async Task<HubSpotToken> GetNewAccessToken(string code)
         {
            // var token = new HubSpotToken();
             var client = new HttpClient();
@@ -43,8 +43,8 @@ namespace HubSpotTest.Service.Service
             postMessage.Add("grant_type", "authorization_code");
             postMessage.Add("client_id", client_id);
             postMessage.Add("client_secret", client_secret);
-            postMessage.Add("redirect_uri", "authorization_code");
-            postMessage.Add("code", "authorization_code");
+            postMessage.Add("redirect_uri", "http://localhost:5001");
+            postMessage.Add("code", code);
             var request = new HttpRequestMessage(HttpMethod.Post, this.hotspotSettings.Value.TokenUrl)
             {
                 Content = new FormUrlEncodedContent(postMessage)

@@ -5,6 +5,6 @@ namespace HubSpotTest.Service.Interface
 {
     public interface ITokenService
     {
-        Task<string> GetToken();
+        Task<string> GetToken(string code);
     }
 }

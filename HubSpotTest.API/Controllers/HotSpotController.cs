@@ -13,19 +13,19 @@ namespace HubSpotTest.API.Controllers
     [Route("api/[controller]")]
     public class HotSpotController : Controller
     {
-        private readonly IHotSpotApiService hotspotservice;
-        public HotSpotController(IHotSpotApiService hotspotservice)
+        private readonly ITokenService hotspotservice;
+        public HotSpotController(ITokenService hotspotservice)
         {
             this.hotspotservice = hotspotservice;
         }
         // GET: api/values
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public IActionResult GetAsync(string code)
         {
             try
             {
-                var response = await hotspotservice.GetAllContacts();
-                return Ok(response);
+                var retult  = this.hotspotservice.GetToken(code);
+                return Ok(retult);
             }
             catch (Exception ex)
             {
@@ -42,12 +42,12 @@ namespace HubSpotTest.API.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody]ContactModel value)
+        public  IActionResult PostAsync([FromBody]ContactModel value)
         {
             try
             {
-                var response = await hotspotservice.CreateContact(value);
-                return Ok(response);
+
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -57,12 +57,12 @@ namespace HubSpotTest.API.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string id, [FromBody]ContactModel value)
+        public IActionResult Put(string id, [FromBody]ContactModel value)
         {
             try
             {
-                var response = await hotspotservice.UpdateContact(id,value);
-                return Ok(response);
+                
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -72,12 +72,12 @@ namespace HubSpotTest.API.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(string id)
+        public  IActionResult DeleteAsync(string id)
         {
             try
             {
-                var response = await hotspotservice.DeleteContact(id);
-                return Ok(response);
+               // var response = await hotspotservice.DeleteContact(id);
+                return Ok();
             }
             catch (Exception ex)
             {
