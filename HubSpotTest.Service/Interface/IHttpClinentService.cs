@@ -11,5 +11,7 @@ namespace HubSpotTest.Service.Interface
         Task<string> PostAsync(string uri, string data);
         Task<string> DeleteAsync(string uri);
         Task<string> PutAsync(string uri, string data);
+
+        Task<string> SubcriptionPost(string data);
     }
 }

@@ -14,5 +14,6 @@ namespace HubSpotTest.Model
         public string BaseAddress { get; set; }
 
         public string RedirectUrl { get; set; }
+        public string AppId { get; set; }
     }
 }

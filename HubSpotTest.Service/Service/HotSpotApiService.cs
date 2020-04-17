@@ -90,5 +90,15 @@ namespace HubSpotTest.Service.Service
             return response;
         }
 
+
+
+
+        public async Task<string> SubscriptionType(Subscription subcription)
+        {
+            var jsonObj = JsonConvert.SerializeObject(subcription);
+            var response = await httpclient.SubcriptionPost(jsonObj);
+            return response;
+        }
+
     }
 }

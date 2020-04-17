@@ -83,5 +83,23 @@ namespace HubSpotTest.Service.Service
 
 
 
+        public async Task<string> SubcriptionPost(string data)
+        {
+            var longurl = hotspotSettings.Value.BaseAddress + "/webhooks/v1/" + hotspotSettings.Value.AppId + "/subscriptions";
+            var httpClient = new HttpClient();
+            var builder = new UriBuilder(longurl);
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            query["hapikey"] = hotspotSettings.Value.ApiKey;
+            builder.Query = query.ToString();
+            var urlfinal = builder.ToString();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = await httpClient.PostAsync(urlfinal, new StringContent(data, Encoding.UTF8,
+                                    "application/json")).Result.Content.ReadAsStringAsync();
+            return response;
+
+        }
+
+
+
     }
 }

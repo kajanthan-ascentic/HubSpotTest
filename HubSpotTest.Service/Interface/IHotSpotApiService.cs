@@ -28,6 +28,6 @@ namespace HubSpotTest.Service.Interface
 
         Task<string> DeleteCompany(string id);
 
-
+        Task<string> SubscriptionType(Subscription subcription);
     }
 }
