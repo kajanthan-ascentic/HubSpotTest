@@ -3,11 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HubSpotTest.Model\HubSpotTest.Model.csproj" />
   </ItemGroup>

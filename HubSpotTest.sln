@@ -10,28 +10,37 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubSpotTest.Model", "HubSpo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionApps", "FunctionApps", "{CCB9DE9B-2BD4-4A8A-944A-DA819A87B28C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubSpotTest.FunctionApp.Webhook", "FunctionApps\HubSpotTest.FunctionApp.Webhook\HubSpotTest.FunctionApp.Webhook.csproj", "{E522C3DF-7A4D-4E9A-844C-F005E5977A67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubSpotTest.FunctionApp.Webhook", "FunctionApps\HubSpotTest.FunctionApp.Webhook\HubSpotTest.FunctionApp.Webhook.csproj", "{E522C3DF-7A4D-4E9A-844C-F005E5977A67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E6F65068-96A8-4200-8650-172FB0CB9331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6F65068-96A8-4200-8650-172FB0CB9331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F65068-96A8-4200-8650-172FB0CB9331}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F65068-96A8-4200-8650-172FB0CB9331}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{E6F65068-96A8-4200-8650-172FB0CB9331}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6F65068-96A8-4200-8650-172FB0CB9331}.Release|Any CPU.Build.0 = Release|Any CPU
 		{147BDE0E-5468-4BB7-B079-3EFB97D04374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{147BDE0E-5468-4BB7-B079-3EFB97D04374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{147BDE0E-5468-4BB7-B079-3EFB97D04374}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{147BDE0E-5468-4BB7-B079-3EFB97D04374}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{147BDE0E-5468-4BB7-B079-3EFB97D04374}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{147BDE0E-5468-4BB7-B079-3EFB97D04374}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19C82846-EC25-4296-AF3F-6A589825580A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19C82846-EC25-4296-AF3F-6A589825580A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C82846-EC25-4296-AF3F-6A589825580A}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C82846-EC25-4296-AF3F-6A589825580A}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{19C82846-EC25-4296-AF3F-6A589825580A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19C82846-EC25-4296-AF3F-6A589825580A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
