@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionApps", "FunctionApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubSpotTest.FunctionApp.Webhook", "FunctionApps\HubSpotTest.FunctionApp.Webhook\HubSpotTest.FunctionApp.Webhook.csproj", "{E522C3DF-7A4D-4E9A-844C-F005E5977A67}"
 EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "HubspotTest.Awis.DataCapture", "HubspotTest.Awis.DataCapture\HubspotTest.Awis.DataCapture.dtproj", "{783099AF-381B-4332-BF32-2E9C767F972D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,12 @@ Global
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E522C3DF-7A4D-4E9A-844C-F005E5977A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{783099AF-381B-4332-BF32-2E9C767F972D}.Debug|Any CPU.ActiveCfg = Development
+		{783099AF-381B-4332-BF32-2E9C767F972D}.Debug|Any CPU.Build.0 = Development
+		{783099AF-381B-4332-BF32-2E9C767F972D}.Development|Any CPU.ActiveCfg = Development
+		{783099AF-381B-4332-BF32-2E9C767F972D}.Development|Any CPU.Build.0 = Development
+		{783099AF-381B-4332-BF32-2E9C767F972D}.Release|Any CPU.ActiveCfg = Development
+		{783099AF-381B-4332-BF32-2E9C767F972D}.Release|Any CPU.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
