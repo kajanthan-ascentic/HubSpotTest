@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Hubspot.Sync.Account.Common.Services.Service.Hubspot;
 
 namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
 {
@@ -22,12 +23,23 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
 
         protected string _objectType = String.Empty;
 
-        public BaseSynchronize(string sourceAPIKey, string destinationAPIKey, string objectType) 
+        public BaseSynchronize(string sourceAPIKey, string destinationAPIKey, string objectType, string urlFormat) 
         {
             this._sourceClient = new HttpClientService<T>(sourceAPIKey);
             this._destinationClient = new HttpClientService<T>(destinationAPIKey);
             this._objectType = objectType;
+
+            this._sourceService = new HubspotService<T>(this._sourceClient, objectType, urlFormat);
+            this._destinationService = new HubspotService<T>(this._destinationClient, objectType, urlFormat);
         }
+
+        protected abstract IEnumerable<T> GetMissingList();
+
+        protected abstract IEnumerable<T> GetOrderList(IEnumerable<T> list);
+
+        protected abstract string GetConsoleText(T model);
+
+        protected abstract object GetInsertModel(T model);
 
         private async Task PopulateLists() 
         {
@@ -43,14 +55,6 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
             this._missingList = this.GetOrderList(this._missingList);
             Console.WriteLine("Missing count : " + this._missingList.Count().ToString());
         }
-
-        protected abstract IEnumerable<T> GetMissingList();
-
-        protected abstract IEnumerable<T> GetOrderList(IEnumerable<T> list);
-
-        protected abstract string GetConsoleText(T model);
-
-        protected abstract object GetInsertModel(T model);
 
         public async Task Sync()
         {

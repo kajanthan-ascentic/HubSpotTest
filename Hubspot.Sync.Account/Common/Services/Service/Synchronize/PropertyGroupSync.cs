@@ -9,10 +9,14 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
 {
     public class PropertyGroupSync : BaseSynchronize<PropertyGroup>
     {
-        public PropertyGroupSync(string sourceAPIKey, string destinationAPIKey, string objectType) : base(sourceAPIKey, destinationAPIKey, objectType) 
+        public PropertyGroupSync(string sourceAPIKey, 
+                                    string destinationAPIKey, 
+                                    string objectType) : base(sourceAPIKey, 
+                                                              destinationAPIKey, 
+                                                              objectType, 
+                                                              Constants.URL_PROPERTY_GROUP) 
         {
-            this._sourceService = new PropertyGroupsService<PropertyGroup>(this._sourceClient, objectType);
-            this._destinationService = new PropertyGroupsService<PropertyGroup>(this._destinationClient, objectType);
+            
         }
         protected override string GetConsoleText(PropertyGroup model)
         {
