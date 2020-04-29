@@ -22,8 +22,9 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
         protected IEnumerable<T> _missingList = null;
 
         protected string _objectType = String.Empty;
+        protected bool _syncEnabled = false;
 
-        public BaseSynchronize(string sourceAPIKey, string destinationAPIKey, string objectType, string urlFormat) 
+        public BaseSynchronize(string sourceAPIKey, string destinationAPIKey, string objectType, string urlFormat, bool syncEnabled) 
         {
             this._sourceClient = new HttpClientService<T>(sourceAPIKey);
             this._destinationClient = new HttpClientService<T>(destinationAPIKey);
@@ -31,6 +32,8 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
 
             this._sourceService = new HubspotService<T>(this._sourceClient, objectType, urlFormat);
             this._destinationService = new HubspotService<T>(this._destinationClient, objectType, urlFormat);
+
+            this._syncEnabled = syncEnabled;
         }
 
         protected abstract IEnumerable<T> GetMissingList();
@@ -58,7 +61,7 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
 
         public async Task Sync()
         {
-            Console.WriteLine("Begin : " + this.GetType().Name + (String.IsNullOrEmpty(this._objectType) ?  " object type : " + this._objectType : String.Empty));
+            Console.WriteLine("Begin : " + this.GetType().Name + (!String.IsNullOrEmpty(this._objectType) ?  " object type : " + this._objectType : String.Empty));
 
             await this.PopulateLists();
 
@@ -66,10 +69,13 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
             {
                 Console.WriteLine(this.GetConsoleText(item));
 
-                await this._destinationService.Post(this.GetInsertModel(item));
+                if (this._syncEnabled) 
+                {
+                    await this._destinationService.Post(this.GetInsertModel(item));
+                }
             }
 
-            Console.WriteLine("End : " + this.GetType().Name + (String.IsNullOrEmpty(this._objectType) ? " object type : " + this._objectType : String.Empty));
+            Console.WriteLine("End : " + this.GetType().Name + (!String.IsNullOrEmpty(this._objectType) ? " object type : " + this._objectType : String.Empty));
         }
     }
 }

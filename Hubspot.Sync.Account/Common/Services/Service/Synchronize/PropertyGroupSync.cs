@@ -1,8 +1,5 @@
 ﻿using Hubspot.Sync.Account.Common.Models.Hubspot;
-using Hubspot.Sync.Account.Common.Services.Service.Hubspot;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
@@ -11,10 +8,12 @@ namespace Hubspot.Sync.Account.Common.Services.Service.Synchronize
     {
         public PropertyGroupSync(string sourceAPIKey, 
                                     string destinationAPIKey, 
-                                    string objectType) : base(sourceAPIKey, 
+                                    string objectType,
+                                    bool syncEnabled = false ) : base(sourceAPIKey, 
                                                               destinationAPIKey, 
                                                               objectType, 
-                                                              Constants.URL_PROPERTY_GROUP) 
+                                                              Constants.URL_PROPERTY_GROUP,
+                                                              syncEnabled) 
         {
             
         }

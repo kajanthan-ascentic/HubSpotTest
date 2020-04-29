@@ -3,6 +3,7 @@ using Hubspot.Sync.Account.Common.Models.Hubspot;
 using Hubspot.Sync.Account.Common.Services.Interface;
 using Hubspot.Sync.Account.Common.Services.Service.Synchronize;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hubspot.Sync.Account
@@ -15,20 +16,48 @@ namespace Hubspot.Sync.Account
 
             string sourceKey = Constants.KEY_API_DEV;
             string destinationKey = Constants.KEY_API_QA;
+            bool syncEnabled = true;
+            Console.WriteLine("Property Group begin");
 
-            ISync<PropertyGroup> pgContactSync = new PropertyGroupSync(sourceKey, destinationKey, "contact");
+            List<string> objectType = new List<string>() { "contact", "company", "deal" };
 
-            await pgContactSync.Sync();
+            Console.WriteLine("Property Group begin");
 
-            ISync<PropertyGroup> pgCompanySync = new PropertyGroupSync(sourceKey, destinationKey, "company");
+            foreach (var item in objectType)
+            {
+                ISync<PropertyGroup> pgSync = new PropertyGroupSync(sourceKey, 
+                                                                    destinationKey, 
+                                                                    item, 
+                                                                    syncEnabled);
 
-            await pgCompanySync.Sync();
+                if (pgSync != null) 
+                {
+                    await pgSync.Sync();
+                }
+            }
 
-            ISync<PropertyGroup> pgDealsSync = new PropertyGroupSync(sourceKey, destinationKey, "deal");
+            Console.WriteLine("Property Group end");
 
-            await pgDealsSync.Sync();
+            Console.WriteLine("Property begin");
+
+            foreach (var item in objectType)
+            {
+                ISync<PropertyModel> pSync = new PropertySync(sourceKey,
+                                                                    destinationKey,
+                                                                    item,
+                                                                    syncEnabled);
+
+                if (pSync != null)
+                {
+                    await pSync.Sync();
+                }
+            }
+
+            Console.WriteLine("Property end");
 
             Console.WriteLine("Sync Process End");
+
+            Console.ReadLine();
 
         }
     }
