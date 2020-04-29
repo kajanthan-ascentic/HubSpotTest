@@ -213,44 +213,43 @@ namespace HubSpotTest.Resonance.Sender
     */
 
 
-    /*
+
     class Program
     {
         static void Main(string[] args)
         {
-            //"Server=LAPTOP-HV3JGU9Q;Database=ResonanceDB;Trusted_Connection=True;MultipleActiveResultSets=true;";
-            //"Data Source=LAPTOP-HV3JGU9Q;Database=db-autoconcepts-awis-dev;Trusted_Connection=True;MultipleActiveResultSets=true";
-            //"Data Source=LAPTOP-HV3JGU9Q;Database=db-autoconcepts-awis-dev;Trusted_Connection=True;Integrated Security=True;"
-            var repoFactory = new MsSqlEventingRepoFactory("Server=LAPTOP-HV3JGU9Q;Database=SourceDB;Trusted_Connection=True;MultipleActiveResultSets=true;");
-            var publisher = new EventPublisher(repoFactory);
+            ////"Server=LAPTOP-HV3JGU9Q;Database=ResonanceDB;Trusted_Connection=True;MultipleActiveResultSets=true;";
+            ////"Data Source=LAPTOP-HV3JGU9Q;Database=db-autoconcepts-awis-dev;Trusted_Connection=True;MultipleActiveResultSets=true";
+            ////"Data Source=LAPTOP-HV3JGU9Q;Database=db-autoconcepts-awis-dev;Trusted_Connection=True;Integrated Security=True;"
+            //var repoFactory = new MsSqlEventingRepoFactory("Server=LAPTOP-HV3JGU9Q;Database=SourceDB;Trusted_Connection=True;MultipleActiveResultSets=true;");
+            //var publisher = new EventPublisher(repoFactory);
 
 
-            Console.WriteLine(JsonConvert.SerializeObject(publisher));
+            //Console.WriteLine(JsonConvert.SerializeObject(publisher));
 
-            Topic  topic =  publisher.GetTopicByName("Demo Topic");
+            //Topic  topic =  publisher.GetTopicByName("Demo Topic");
 
-            if (topic != null)
-            {
-                publisher.AddOrUpdateTopic(new Topic { Name = "Demo Topic" });
-                Console.WriteLine("Creating new topic name : Demo Topic");
-            }
-            else 
-            {
-                Console.WriteLine("Topic exists");
-            }
+            //if (topic != null)
+            //{
+            //    publisher.AddOrUpdateTopic(new Topic { Name = "Demo Topic" });
+            //    Console.WriteLine("Creating new topic name : Demo Topic");
+            //}
+            //else 
+            //{
+            //    Console.WriteLine("Topic exists");
+            //}
 
-            var order = new Order
-            {
-                Product = "Car",
-                Price = 15000m,
-                ItemCount = 1,
-            };
-            TopicEvent topicEvent= publisher.Publish<Order>(topic.Name, payload: order);
+            //var order = new Order
+            //{
+            //    Product = "Car",
+            //    Price = 15000m,
+            //    ItemCount = 1,
+            //};
+            //TopicEvent topicEvent= publisher.Publish<Order>(topic.Name, payload: order);
 
-            Console.WriteLine(JsonConvert.SerializeObject(topicEvent));
+            //Console.WriteLine(JsonConvert.SerializeObject(topicEvent));
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
-    */
 }

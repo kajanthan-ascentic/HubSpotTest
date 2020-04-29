@@ -18,9 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubSpotTest.Resonance.Sende
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubSpotTest.Resonance.Reciever", "HubSpotTest.Resonance.Reciever\HubSpotTest.Resonance.Reciever.csproj", "{D128E9E0-24A9-4A02-AA2C-8C48594362FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubspotTest.RabbitMQ.Sender", "HubspotTest.RabbitMQ.Sender\HubspotTest.RabbitMQ.Sender.csproj", "{3C92AAA0-AFFB-4434-84BE-70A62A892CE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubspotTest.RabbitMQ.Sender", "HubspotTest.RabbitMQ.Sender\HubspotTest.RabbitMQ.Sender.csproj", "{3C92AAA0-AFFB-4434-84BE-70A62A892CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubspotTest.RabbitMQ.Reciever", "HubspotTest.RabbitMQ.Reciever\HubspotTest.RabbitMQ.Reciever.csproj", "{85044B7D-ADC6-47F0-9C7B-732BB23D90E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubspotTest.RabbitMQ.Reciever", "HubspotTest.RabbitMQ.Reciever\HubspotTest.RabbitMQ.Reciever.csproj", "{85044B7D-ADC6-47F0-9C7B-732BB23D90E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hubspot.Sync.Account", "Hubspot.Sync.Account\Hubspot.Sync.Account.csproj", "{C416514E-680D-4072-ACC4-6D583EEBBFE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,12 @@ Global
 		{85044B7D-ADC6-47F0-9C7B-732BB23D90E0}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{85044B7D-ADC6-47F0-9C7B-732BB23D90E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85044B7D-ADC6-47F0-9C7B-732BB23D90E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C416514E-680D-4072-ACC4-6D583EEBBFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C416514E-680D-4072-ACC4-6D583EEBBFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C416514E-680D-4072-ACC4-6D583EEBBFE4}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{C416514E-680D-4072-ACC4-6D583EEBBFE4}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{C416514E-680D-4072-ACC4-6D583EEBBFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C416514E-680D-4072-ACC4-6D583EEBBFE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
