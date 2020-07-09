@@ -7,4 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="HubSpot\" />
+    <Folder Include="V3\" />
+  </ItemGroup>
 </Project>

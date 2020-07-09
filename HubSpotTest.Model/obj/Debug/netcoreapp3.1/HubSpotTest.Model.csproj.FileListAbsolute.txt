@@ -1,9 +1,0 @@
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\bin\Debug\netcoreapp3.1\HubSpotTest.Model.deps.json
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\bin\Debug\netcoreapp3.1\HubSpotTest.Model.dll
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\bin\Debug\netcoreapp3.1\HubSpotTest.Model.pdb
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\obj\Debug\netcoreapp3.1\HubSpotTest.Model.csprojAssemblyReference.cache
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\obj\Debug\netcoreapp3.1\HubSpotTest.Model.csproj.CoreCompileInputs.cache
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\obj\Debug\netcoreapp3.1\HubSpotTest.Model.AssemblyInfoInputs.cache
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\obj\Debug\netcoreapp3.1\HubSpotTest.Model.AssemblyInfo.cs
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\obj\Debug\netcoreapp3.1\HubSpotTest.Model.dll
-C:\Users\LENOVO\Source\Repos\Ascentic\kajanthan-ascentic\HubSpotTest\HubSpotTest.Model\obj\Debug\netcoreapp3.1\HubSpotTest.Model.pdb
