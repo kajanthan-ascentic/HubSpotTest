@@ -14,5 +14,7 @@ namespace HubSpot.Sync.Service.Interface
         Task<V3PropertyResult> GetAllProperties();
 
         Task<AssociationBatchResponse> CreateCompanyAssociationBatch(AssociationBatchCreation createBatchDeal);
+
+        Task<object> BatchUpdateCompany(HubspotBatchUpdate company);
     }
 }

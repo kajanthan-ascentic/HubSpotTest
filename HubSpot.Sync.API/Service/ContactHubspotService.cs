@@ -10,6 +10,7 @@ using HubSpot.Sync.Service.Interface;
 using HubSpotTest.Model.V3;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace HubSpot.Sync.API.Service
 {
@@ -55,24 +56,54 @@ namespace HubSpot.Sync.API.Service
 
             foreach (var contact in contactList)
             {
-                var emailValue = contact.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Contact.HubspotProperties.Email);
-                this.logger.LogInformation("ContactHubspotService: Email ID: " + emailValue);
+                try
+                {
+                    var emailValue = contact.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Contact.HubspotProperties.Email);
+                    this.logger.LogInformation("ContactHubspotService: Email ID: " + emailValue);
+                    if (emailValue != null)
+                    {
 
-               Result contactExistByEmail = existingcontactList.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Contact.HubspotProperties.Email, out object value) &&
-                                                                                value.ToString() == emailValue.ToString()).FirstOrDefault();
-                if(contactExistByEmail == null)
+                        Result contactExistByEmail = existingcontactList.Where(x => x.Properties != null && x.Properties.TryGetValue(this.syncPropertySettings.Value.Contact.HubspotProperties.Email, out object value) &&
+                                                                                         (value !=null && value.ToString() == emailValue.ToString())).FirstOrDefault();
+                        if (contactExistByEmail == null)
+                        {
+                            var batchProperty = new HubspotBatchCreateProperty();
+                            contact.Properties.Remove("createdate");
+                            contact.Properties.Remove("lastmodifieddate");
+                            contact.Properties.Remove("hs_object_id");
+                            contact.Properties.Remove("associatedcompanyid");
+                            contact.Properties.Remove("hubspot_owner_id");
+                            batchProperty.Properties = (from kv in contact.Properties
+                                                        where kv.Value != null
+                                                        select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
+                            batchContactList.Add(batchProperty);
+                        }
+                        else
+                        {
+                            this.logger.LogInformation("ContactHubspotService: Email ID: Already Exist in the Contact" + emailValue);
+                        }
+                    }else
+                    {
+                        this.logger.LogInformation("ContactHubspotService: Email ID: Null -- No Email Found" + contact.id);
+
+                        var batchProperty = new HubspotBatchCreateProperty();
+                        contact.Properties.Remove("createdate");
+                        contact.Properties.Remove("lastmodifieddate");
+                        contact.Properties.Remove("hs_object_id");
+                        contact.Properties.Remove("associatedcompanyid");
+                        contact.Properties.Remove("hubspot_owner_id");
+                        batchProperty.Properties = (from kv in contact.Properties
+                                                    where kv.Value != null
+                                                    select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
+                        batchContactList.Add(batchProperty);
+                    }
+
+                }
+                catch (Exception ex)
                 {
-                    var batchProperty = new HubspotBatchCreateProperty();
-                    contact.Properties.Remove("createdate");
-                    contact.Properties.Remove("lastmodifieddate");
-                    contact.Properties.Remove("hs_object_id");
-                    batchProperty.Properties = (from kv in contact.Properties
-                                                where kv.Value != null
-                                                select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
-                    batchContactList.Add(batchProperty);
-                }else
-                {
-                    this.logger.LogInformation("ContactHubspotService: Email ID: Already Exist in the Contact" + emailValue);
+                    this.logger.LogInformation(ex.Message);
+                    this.logger.LogInformation(JsonConvert.SerializeObject(ex));
+                    this.logger.LogError(ex, ex.Message);
                 }
 
             }
@@ -93,7 +124,12 @@ namespace HubSpot.Sync.API.Service
                         var response = await this.contactService.BatchCreateContact(contactCreation);
 
                         // if there is response remove from the original List
-                        if (response != null)                        {                            batchContactList.RemoveRange(0, endCount);                        }                       this.logger.LogInformation("ContactHubspotService:CreateContacts: Batch Contact Create endCount : " + endCount);                    }                    catch (Exception ex)                    {                         this.logger.LogError("ContactHubspotService:CreateContacts :batchCreate Exception for endCount : " + endCount);                         this.logger.LogError(ex.Message);                         this.logger.LogError(ex, ex.Message);                    }                } while (batchContactList.Count > 0);            }
+                        if (response != null)                        {                            var result = JsonConvert.DeserializeObject<V3ResponseResult>(JsonConvert.SerializeObject(response));                            if(!result.Status)
+                            {
+                                this.logger.LogError("Log Error");
+                            }                            batchContactList.RemoveRange(0, endCount);                        }                       this.logger.LogInformation("ContactHubspotService:CreateContacts: Batch Contact Create endCount : " + endCount);                    }                    catch (Exception ex)                    {                        this.logger.LogError("ContactHubspotService:CreateContacts :batchCreate Exception for endCount : " + endCount);                        this.logger.LogError(ex.Message);
+                        this.logger.LogInformation(JsonConvert.SerializeObject(ex));
+                        this.logger.LogError(ex, ex.Message);                    }                } while (batchContactList.Count > 0);            }
 
 
             this.logger.LogInformation("************* END TO CREATE CONTACTS ***************************");

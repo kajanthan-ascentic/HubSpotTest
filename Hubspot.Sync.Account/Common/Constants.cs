@@ -12,8 +12,8 @@ namespace Hubspot.Sync.Account.Common
         public const string URL_PROPERTY = "/crm/v3/properties/{0}";
         public const string URL_PIPELINE = "/crm-pipelines/v1/pipelines/{0}";
 
-        public const string KEY_API_DEV = "36c767c6-7b8a-4d10-870f-e597474ac056";
-        public const string KEY_API_QA = "d47ee2a5-29a1-4f02-9655-0d66c0da4f23";
+        public const string KEY_API_DEV = "bb7a510a-73dc-4b73-96ab-4c78987c6485";
+        public const string KEY_API_QA = "a6f4c218-809e-4f7a-b24c-f83e8e816aec";
         public const string KEY_API_LIVE = "";
     }
 }

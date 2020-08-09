@@ -49,5 +49,10 @@ namespace HubSpot.Sync.Service.Service
         }
 
         public async Task<AssociationBatchResponse> CreateCompanyAssociationBatch(AssociationBatchCreation createBatchDeal)        {            return await this.toHubspotHttpClientService.PostAsync<AssociationBatchResponse>("/crm/v3/associations/company/contact/batch/create", createBatchDeal);        }
+
+        public async Task<object> BatchUpdateCompany(HubspotBatchUpdate company)
+        {
+            return await this.httpclient.PostAsyncWithError<object>("/crm/v3/objects/companies/batch/update", company);
+        }
     }
 }

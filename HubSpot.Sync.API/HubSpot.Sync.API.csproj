@@ -20,6 +20,7 @@
     <Folder Include="Model\Settings\" />
     <Folder Include="Model\Search\" />
     <Folder Include="Extentions\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HubSpotTest.Model\HubSpotTest.Model.csproj">

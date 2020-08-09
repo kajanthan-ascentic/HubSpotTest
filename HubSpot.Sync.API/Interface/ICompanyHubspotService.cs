@@ -6,5 +6,6 @@ namespace HubSpot.Sync.API.Interface
     public interface ICompanyHubspotService
     {
         Task CreateCompanies();
+        Task UpdateCompanyProperty();
     }
 }

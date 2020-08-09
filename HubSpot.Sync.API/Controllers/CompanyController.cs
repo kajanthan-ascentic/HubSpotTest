@@ -63,8 +63,27 @@ namespace HubSpot.Sync.API.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Put(int id, [FromBody]VerifyModal modal)
         {
+
+            try
+            {
+                if (modal.Name.ToString() == "Test")
+                {
+                    await this.companyHubspotService.UpdateCompanyProperty();
+                    return Ok("success");
+                }
+                else
+                {
+                    this.logger.LogInformation("Hubspot Value Different");
+                    return StatusCode(404, "Hubspot Value Different");
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // DELETE api/values/5

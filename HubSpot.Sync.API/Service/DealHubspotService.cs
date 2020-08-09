@@ -8,6 +8,7 @@ using HubSpot.Sync.Service.Interface;
 using HubSpotTest.Model.V3;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace HubSpot.Sync.API.Service
 {
@@ -58,24 +59,41 @@ namespace HubSpot.Sync.API.Service
                 var insuranceId = deal.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID);
                 this.logger.LogInformation("DealHubspotService: Insurance Id: " + insuranceId);
 
-                Result dealExistByInsuranceId = existingDealList.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID, out object value) &&
-                                                                                 value.ToString() == insuranceId.ToString()).FirstOrDefault();
-                if (dealExistByInsuranceId == null)
+                if (insuranceId != null)
                 {
+
+                    Result dealExistByInsuranceId = existingDealList.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID, out object value) &&
+                                                                                     value.ToString() == insuranceId.ToString()).FirstOrDefault();
+                    if (dealExistByInsuranceId == null)
+                    {
+                        var batchProperty = new HubspotBatchCreateProperty();
+                        deal.Properties.Remove("createdate");
+                        deal.Properties.Remove("hs_lastmodifieddate");
+                        deal.Properties.Remove("hs_object_id");
+                        deal.Properties.Remove("hubspot_owner_id");
+                        batchProperty.Properties = (from kv in deal.Properties
+                                                    where kv.Value != null
+                                                    select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
+                        batchDealList.Add(batchProperty);
+                    }
+                    else
+                    {
+                        this.logger.LogInformation("DealHubspotService: Insurance Id: Already Exist in the Deal" + insuranceId);
+                    }
+
+                }else
+                {
+                    this.logger.LogInformation("DealHubspotService: Insurance Id: NULL" + deal.id);
                     var batchProperty = new HubspotBatchCreateProperty();
                     deal.Properties.Remove("createdate");
                     deal.Properties.Remove("hs_lastmodifieddate");
                     deal.Properties.Remove("hs_object_id");
+                    deal.Properties.Remove("hubspot_owner_id");
                     batchProperty.Properties = (from kv in deal.Properties
                                                 where kv.Value != null
                                                 select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
                     batchDealList.Add(batchProperty);
                 }
-                else
-                {
-                    this.logger.LogInformation("DealHubspotService: Insurance Id: Already Exist in the Deal" + insuranceId);
-                }
-
             }
 
 
@@ -95,7 +113,11 @@ namespace HubSpot.Sync.API.Service
                         var response = await this.dealService.BatchCreateDeal(dealCreation);
 
                         // if there is response remove from the original List
-                        if (response != null)                        {                            batchDealList.RemoveRange(0, endCount);                        }
+                        if (response != null)                        {
+                            var result = JsonConvert.DeserializeObject<V3ResponseResult>(JsonConvert.SerializeObject(response));                            if (!result.Status)
+                            {
+                                this.logger.LogError("Log Error");
+                            }                            batchDealList.RemoveRange(0, endCount);                        }
 
                         this.logger.LogInformation("DealHubspotService:CreateDeals: Batch Deal Create endCount : " + endCount);                    }                    catch (Exception ex)                    {
                         this.logger.LogError("DealHubspotService:CreateDeals :batchCreate Exception for endCount : " + endCount);

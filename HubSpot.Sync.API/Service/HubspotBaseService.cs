@@ -31,7 +31,7 @@ namespace HubSpot.Sync.API.Service
                         // logger.LogInformation("GetAllSearch object : " + hubspotObject + " after:" + after);
 
                         // delay after creation to avoid api rate limit 
-                        // await this.DelayForHubspotAPI<T>(logger);
+                       //  await this.DelayForHubspotAPI<T>(logger);
                     }                }            }            while (v3Result != null && v3Result.paging != null);
 
             return result;
@@ -140,10 +140,18 @@ namespace HubSpot.Sync.API.Service
 
         public AssociationBatchCreationSub GenerateAssociationProperty(long toId, long fromId, string type)        {            AssociationBatchCreationSub associationBatchSub = new AssociationBatchCreationSub();            var expandoObjectFromDic = new ExpandoObject() as IDictionary<string, object>;            var expandoObjectToDic = new ExpandoObject() as IDictionary<string, object>;            associationBatchSub.from = new ExpandoObject();            associationBatchSub.to = new ExpandoObject();            expandoObjectFromDic.Add("id", fromId);            expandoObjectToDic.Add("id", toId);            associationBatchSub.from = (ExpandoObject)expandoObjectFromDic;            associationBatchSub.to = (ExpandoObject)expandoObjectToDic;            associationBatchSub.type = type;            return associationBatchSub;        }
 
-        public Result GetDealDataByExisting(List<Result> existingDeals, Result deal)        {            var dealid = deal.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID);            return existingDeals.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID, out object value) &&                                    value.ToString() == dealid.ToString()).FirstOrDefault();        }
+        public Result GetDealDataByExisting(List<Result> existingDeals, Result deal)        {            var dealid = deal.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID);            if (dealid != null)
+            {
+                return existingDeals.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID, out object value) &&
+                                         (value != null && value.ToString() == dealid.ToString())).FirstOrDefault();
+            }            return null;        }
 
 
-        public Result GetCompanyInformation(List<Result> existingCompanies, Result company)        {            var customerId = company.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Company.HubspotProperties.CustomerNumber);            return existingCompanies.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Company.HubspotProperties.CustomerNumber, out object value) &&                                    value.ToString() == customerId.ToString()).FirstOrDefault();        }
+        public Result GetCompanyInformation(List<Result> existingCompanies, Result company)        {            var customerId = company.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Company.HubspotProperties.CustomerNumber);            if(customerId != null)
+            {
+                return existingCompanies.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Company.HubspotProperties.CustomerNumber, out object value) &&
+                            (value !=null && value.ToString() == customerId.ToString())).FirstOrDefault();
+            }            return null;        }
 
 
 
@@ -153,8 +161,27 @@ namespace HubSpot.Sync.API.Service
             if (contact != null)
             {
                 var customerId = contact.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Contact.HubspotProperties.Email);
-                return existingContacts.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Contact.HubspotProperties.Email, out object value) &&
-                                        value.ToString() == customerId.ToString()).FirstOrDefault();
+                if (customerId != null)
+                {
+                    return existingContacts.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Contact.HubspotProperties.Email,
+                        out object value) && (value != null && value.ToString() == customerId.ToString())).FirstOrDefault();
+                }
+
+            }
+            return null;
+        }
+
+        public Result GetContactInformationByDeal(List<Result> existingContacts, List<Result> contactList, long contactId)        {
+            var contact = contactList.Where(x => x.idLong == contactId).FirstOrDefault();
+            if (contact != null)
+            {
+                var customerId = contact.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Contact.HubspotProperties.CustomerNumber);
+                if (customerId != null)
+                {
+                    return existingContacts.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Contact.HubspotProperties.CustomerNumber,
+                        out object value) && (value != null && value.ToString() == customerId.ToString())).FirstOrDefault();
+                }
+
             }
             return null;
         }
@@ -165,9 +192,15 @@ namespace HubSpot.Sync.API.Service
             var deal = dealList.Where(x => x.idLong == dealid).FirstOrDefault();
             if (deal != null)
             {
-                var customerId = deal.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID);
-                return existingDealsList.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Deal.HubspotProperties.InsuranceID, out object value) &&
-                                        value.ToString() == customerId.ToString()).FirstOrDefault();
+                var customerId = deal.Properties.GetValueOrDefault(this.syncPropertySettings.Value.Deal.HubspotProperties.Name);
+                if (customerId != null)
+                {
+                    return existingDealsList.Where(x => x.Properties.TryGetValue(this.syncPropertySettings.Value.Deal.HubspotProperties.Name, out object value) &&
+                        (value!=null && value.ToString() == customerId.ToString())).FirstOrDefault();
+
+                  
+                }
+
             }
             return null;
         }

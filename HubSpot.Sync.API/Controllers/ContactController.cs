@@ -6,6 +6,7 @@ using HubSpot.Sync.API.Interface;
 using HubSpot.Sync.API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -63,6 +64,8 @@ namespace HubSpot.Sync.API.Controllers
             catch (Exception ex)
             {
                 this.logger.LogError(ex.Message);
+                this.logger.LogInformation(JsonConvert.SerializeObject(ex));
+                this.logger.LogError(ex, ex.Message);
                 return StatusCode(500, ex.Message);
             }
 
